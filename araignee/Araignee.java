@@ -20,7 +20,7 @@ public class Araignee {
         
         Jeu _jeu = new Jeu();
         
-        
+        //un commentaire
         JPanel sectionGauche = new JPanel();
         sectionGauche.setLayout(new FlowLayout());
         
