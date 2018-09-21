@@ -34,4 +34,9 @@ public class Grille extends JPanel {
             this.add(c);
         }
     }
+    
+    public void test() {
+        _grille.get(0)._occupe = 1;
+        _grille.get(0).repaint();
+    }
 }

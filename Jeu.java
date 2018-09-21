@@ -2,12 +2,18 @@
 package araignee;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Jeu {
+    
+    public final static Color couleurJoueur1 = Color.RED;
+    public final static Color couleurJoueur2 = Color.BLUE;
+    
     JFrame _fenetre;
     
     private Grille _grille;
@@ -17,20 +23,17 @@ public class Jeu {
     private Joueur _joueur2;
     
 
-    Jeu(JFrame fenetre){
-        
+    Jeu(JFrame fenetre){   
         _fenetre = fenetre;
-        
-        _joueur1 = new Joueur("Kyuhh", 1);
-        _joueur2 = new Joueur("Gryffo",2);
-        
-        this.JeuInit();
     }
     
     /**
      * initialisation du jeu
      */
-    void JeuInit(){
+    void start(String nameP1, String nameP2){
+        
+        _joueur1 = new Joueur(nameP1, 1);
+        _joueur2 = new Joueur(nameP2, 2);
         
         JPanel sectionGauche = new JPanel();
         sectionGauche.setLayout(new FlowLayout());
@@ -47,14 +50,17 @@ public class Jeu {
         JLabel message = new JLabel("Test de message un peu mais pas trop long !");
         sectionDroite.add("North", message);
         
-        JPanel coinDroit = new JPanel();
-        coinDroit.setLayout(new FlowLayout());
-        sectionDroite.add("Center", coinDroit);
+        JPanel areaStockPions = new JPanel();
+        areaStockPions.setLayout(new FlowLayout());
+        sectionDroite.add("Center", areaStockPions);
         
         stockPions = new StockPions(100);
-        coinDroit.add(stockPions);
+        areaStockPions.add(stockPions);
         
         _fenetre.add("East", sectionDroite);
+        
+        _fenetre.repaint();
+        _fenetre.setVisible(true);
     }
 
     public void setPlayer(int player) {
@@ -67,7 +73,8 @@ public class Jeu {
     
     public void click(Case c) {
         System.out.println("La case " + c + " a été clickée !");
-        stockPions.test();
+        stockPions.test(); // Action temporaire
+        _grille.test(); // Action temporaire
     }
 }
 

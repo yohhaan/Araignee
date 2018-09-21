@@ -6,13 +6,7 @@
 package araignee;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  *
@@ -24,14 +18,15 @@ public class Araignee {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        JFrame fenetre = new JFrame("Fenetre");
-        fenetre.setSize(600, 600);
-        fenetre.setLayout(new BorderLayout());
+        JFrame screen = new JFrame("Fenetre");
+        screen.setSize(600, 600);
+        screen.setLayout(new BorderLayout());
         
-        Jeu _jeu = new Jeu(fenetre);
+        Jeu jeu = new Jeu(screen);
+        Lobby lobby = new Lobby(screen, jeu);
         
-        fenetre.setVisible(true);
-        fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        screen.setVisible(true);
+        screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
 }

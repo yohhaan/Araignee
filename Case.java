@@ -5,8 +5,10 @@
  */
 package araignee;
 
+import static araignee.StockUnPion.MARGE;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
@@ -27,7 +29,7 @@ public class Case extends JPanel{
         int _taille = 2*MARGE + Pion.TAILLE;
         this.setPreferredSize(new Dimension(_taille, _taille));
         
-        this.setBackground(Color.RED);
+        this.setBackground(Color.YELLOW);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
         _position = position;
@@ -56,5 +58,23 @@ public class Case extends JPanel{
             // gérer les exceptions
             
         }
+    }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
+        switch(_occupe) {
+            case 0:
+                return;
+            case 1:
+                g.setColor(Jeu.couleurJoueur1);
+                break;
+            case 2:
+                g.setColor(Jeu.couleurJoueur2);
+                break;
+        }
+
+        g.fillOval(MARGE, MARGE, Pion.TAILLE, Pion.TAILLE); 
     }
 }
