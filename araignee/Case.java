@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package araignee;
 
 import static araignee.StockUnPion.MARGE;
@@ -76,5 +71,17 @@ public class Case extends JPanel{
         }
 
         g.fillOval(MARGE, MARGE, Pion.TAILLE, Pion.TAILLE); 
+    }
+
+    public void setOccupe(int _occupe) {
+        this._occupe = _occupe;
+    }
+
+    public int getPosition() {
+        return _position;
+    }
+
+    public int getOccupe() {
+        return _occupe;
     }
 }

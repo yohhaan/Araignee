@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package araignee;
 
 import java.awt.GridLayout;
@@ -35,8 +30,8 @@ public class Grille extends JPanel {
         }
     }
     
-    public void test() {
-        _grille.get(0)._occupe = 1;
-        _grille.get(0).repaint();
+    public void test(int position, int occupe) {
+        _grille.get(position)._occupe = occupe;
+        _grille.get(position).repaint();
     }
 }

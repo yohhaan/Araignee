@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package araignee;
 
 import java.awt.Color;
@@ -38,7 +33,15 @@ public class StockPions extends JPanel {
         }
     }
     
-    public void test() {
-        stocks[0].effacePion();
+    public void test(Joueur player) {
+        
+        stocks[player.getPositionStock()].effacePion();
+        
+        if (player.getPositionStock() <=4){
+            player.setPositionStock(player.getPositionStock()+2);
+        }
+        else
+            System.out.println("plus de pion en stock pour le joueur qui vient de jouer");
+        
     }
 }

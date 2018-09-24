@@ -18,8 +18,8 @@ public class Jeu extends JPanel{
     
     private Grille _grille;
     private StockPions stockPions;
-    private int _player=1;
     private Joueur _joueur1;
+    private Joueur _player;
     private Joueur _joueur2;
     
 
@@ -33,9 +33,9 @@ public class Jeu extends JPanel{
      */
     void start(String nameP1, String nameP2){
         
-        _joueur1 = new Joueur(nameP1, 1);
-        _joueur2 = new Joueur(nameP2, 2);
-        
+        _joueur1 = new Joueur(nameP1, 1,0);
+        _joueur2 = new Joueur(nameP2, 2,1);
+        _player=_joueur1;
         JPanel sectionGauche = new JPanel();
         sectionGauche.setLayout(new FlowLayout());
         
@@ -65,18 +65,37 @@ public class Jeu extends JPanel{
         _fenetre.getContentPane().repaint();
     }
 
-    public void setPlayer(int player) {
+    public void setPlayer(Joueur player) {
         _player = player;
     }
 
-    public int getPlayer() {
+    public Joueur getPlayer() {
         return _player;
+    }
+    
+    public void changePlayer(){
+        if (this.getPlayer() ==_joueur1){
+            this.setPlayer(_joueur2);
+        }
+        else
+            this.setPlayer(_joueur1);
     }
     
     public void click(Case c) {
         System.out.println("La case " + c + " a été clickée !");
-        stockPions.test(); // Action temporaire
-        _grille.test(); // Action temporaire
+        
+        if (c.getOccupe()==0){
+           
+            c.setOccupe(_player.getId()); // case occupée par un pion du joueur en train de jouer
+
+            stockPions.test(this.getPlayer());
+            
+            _grille.test(c.getPosition(), this.getPlayer().getId());
+
+            this.changePlayer();
+            
+
+        }
     }
 }
 
