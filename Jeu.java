@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Jeu {
+public class Jeu extends JPanel{
     
     public final static Color couleurJoueur1 = Color.RED;
     public final static Color couleurJoueur2 = Color.BLUE;
@@ -23,7 +23,8 @@ public class Jeu {
     private Joueur _joueur2;
     
 
-    Jeu(JFrame fenetre){   
+    Jeu(JFrame fenetre){
+        super();
         _fenetre = fenetre;
     }
     
@@ -41,7 +42,7 @@ public class Jeu {
         _grille = new Grille(this); // Crée la grille et les pions
         sectionGauche.add(_grille);
         
-        _fenetre.add("West", sectionGauche);
+        this.add("West", sectionGauche);
         
         
         JPanel sectionDroite = new JPanel();
@@ -57,10 +58,11 @@ public class Jeu {
         stockPions = new StockPions(100);
         areaStockPions.add(stockPions);
         
-        _fenetre.add("East", sectionDroite);
+        this.add("East", sectionDroite);
+        _fenetre.add(this);
         
-        _fenetre.repaint();
-        _fenetre.setVisible(true);
+        _fenetre.getContentPane().revalidate();
+        _fenetre.getContentPane().repaint();
     }
 
     public void setPlayer(int player) {
