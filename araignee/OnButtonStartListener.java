@@ -5,6 +5,8 @@
  */
 package araignee;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JFrame;
@@ -14,7 +16,7 @@ import javax.swing.JTextArea;
  *
  * @author Tanguy
  */
-public class OnButtonStartListener implements MouseListener {
+public class OnButtonStartListener implements MouseListener, KeyListener{
     
     private JFrame _screen;
     private Jeu _jeu;
@@ -29,13 +31,7 @@ public class OnButtonStartListener implements MouseListener {
     
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (_nameP1.getText().equals("") || _nameP2.getText().equals("") || _nameP1.equals(_nameP2)) {
-            System.out.println("Wrong names" + _nameP1.getText() + _nameP2.getText());
-        }
-        else {
-            _screen.getContentPane().removeAll();
-            _jeu.start(_nameP1.getText(), _nameP2.getText());
-        }
+        buttonActivated();
     }
 
     @Override
@@ -49,4 +45,29 @@ public class OnButtonStartListener implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {}
+
+    @Override
+    public void keyTyped(KeyEvent e) {}
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            buttonActivated();
+            e.consume();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
+    
+    private void buttonActivated() {
+        
+        if (_nameP1.getText().equals("") || _nameP2.getText().equals("") || _nameP1.equals(_nameP2)) {
+            System.out.println("Wrong names" + _nameP1.getText() + _nameP2.getText());
+        }
+        else {
+            _screen.getContentPane().removeAll();
+            _jeu.start(_nameP1.getText(), _nameP2.getText());
+        }
+    }
 }
