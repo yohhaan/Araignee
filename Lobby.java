@@ -2,6 +2,7 @@
 package araignee;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -27,6 +28,7 @@ class Lobby extends JPanel{
         
         JPanel content = new JPanel();
         content.setLayout(new BorderLayout());
+        content.setBackground(new Color(200, 200, 200, 200));
         
         JLabel title = new JLabel("Le jeu de l'arraigné, par ECLAIR, ou presque");
         title.setFont(new Font("Lucida Handwriting", Font.BOLD, 14));
@@ -34,6 +36,7 @@ class Lobby extends JPanel{
         
         JPanel names = new JPanel();
         names.setLayout(new FlowLayout());
+        names.setBackground(new Color(200, 200, 200, 0));
         
         
         JPanel areaPlayer1 = new JPanel();
@@ -66,8 +69,14 @@ class Lobby extends JPanel{
         startButton.addMouseListener(new OnButtonStartListener(screen, jeu, nameP1, nameP2));
         content.add("South", startButton);
         
+        
         this.add(content);
         screen.add(this);
+        
+        
+        nameP1.addKeyListener(new TextAreaListener(nameP1, nameP2));
+        nameP2.addKeyListener(new TextAreaListener(nameP2, startButton));
+        startButton.addKeyListener(new OnButtonStartListener(screen, jeu, nameP1, nameP2));
     }
 
     @Override
