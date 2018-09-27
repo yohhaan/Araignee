@@ -29,6 +29,8 @@ public class Jeu extends JPanel{
     Jeu(Fenetre fenetre){
         super();
         _fenetre=fenetre;
+
+        setSizes(fenetre);
         _message = new JLabel("Au tour du joueur 1 de jouer !");
         
         JPanel sectionGauche = new JPanel();
@@ -136,6 +138,29 @@ public class Jeu extends JPanel{
         g.drawImage(bgResized, 0, 0, this);
     }
     
+    public void resized(Fenetre fenetre) {
+        
+        setSizes(fenetre);
+        
+        _grille.resized();
+        stockPions.resized();
+        
+        display(fenetre);
+    }
+    
+    private void setSizes(Fenetre fenetre) {
+        Dimension dimensionFenetre = fenetre.getSize();
+        int width = (int)dimensionFenetre.getWidth();
+        int height = (int)dimensionFenetre.getHeight();
+        
+        Pion.taille = (int) (Pion.RATIO_TAILLE * width);
+        
+        StockUnPion.marge = (int) (StockUnPion.RATIO_MARGE * Pion.taille);
+        StockUnPion.taille = 2*StockUnPion.marge + Pion.taille;
+        
+        Case.marge = (int) (Case.RATIO_MARGE * Pion.taille);
+        Case.taille = 2*Case.marge + Pion.taille;
+    }
 
     /*
     GETTER
@@ -152,8 +177,5 @@ public class Jeu extends JPanel{
     public void setPlayer(Joueur player) {
         _player = player;
     }
-
-    public void resized(Fenetre fenetre) {}
-
 }
 

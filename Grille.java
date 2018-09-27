@@ -56,4 +56,10 @@ public class Grille extends JPanel {
     }
     
 
+    public void resized() {
+        for (int i = 0; i < _grille.size(); i++) {
+            _grille.get(i).resized();
+        }
+    }
+
 }

@@ -38,6 +38,7 @@ public class Fenetre extends JFrame implements ComponentListener{
     }
     
     public void startJeu(String nameP1, String nameP2) {
+        _etat = Etat.JEU;
         _jeu.display(this);
         _jeu.start(nameP1, nameP2);
     }
