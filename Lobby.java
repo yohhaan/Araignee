@@ -34,7 +34,7 @@ class Lobby extends JPanel{
         _content.setBackground(new Color(200, 200, 200, 200));
         _content.setPreferredSize(new Dimension((int) (WIDTH_RATIO * width), (int) (HEIGHT_RATIO * height)));
         
-        JLabel title = new JLabel("Le jeu de l'araigné, par ECLAIR, ou presque");
+        JLabel title = new JLabel("Le jeu de l'araignée, par ECLAIR, ou presque");
         title.setFont(new Font("Lucida Handwriting", Font.BOLD, 14));
         _content.add("North", title);
         
