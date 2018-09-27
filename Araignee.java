@@ -6,15 +6,10 @@ import javax.swing.JFrame;
 public class Araignee {
 
     public static void main(String[] args) {
-        JFrame screen = new JFrame("Fenetre");
-        screen.setSize(600, 600);
-        screen.setLayout(new BorderLayout());
+        Fenetre fenetre = new Fenetre();
         
-        Jeu jeu = new Jeu(screen);
-        Lobby lobby = new Lobby(screen, jeu);
-        
-        screen.setVisible(true);
-        screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fenetre.setVisible(true);
+        fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
 }

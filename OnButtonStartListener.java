@@ -9,13 +9,12 @@ import javax.swing.JTextArea;
 
 public class OnButtonStartListener implements MouseListener, KeyListener{
     
-    private JFrame _screen;
+    private Fenetre _fenetre;
     private Jeu _jeu;
     private JTextArea _nameP1, _nameP2;
     
-    public OnButtonStartListener(JFrame screen, Jeu jeu, JTextArea nameP1, JTextArea nameP2) {
-        _screen = screen;
-        _jeu = jeu;
+    public OnButtonStartListener(Fenetre fenetre, JTextArea nameP1, JTextArea nameP2) {
+        _fenetre = fenetre;
         _nameP1 = nameP1;
         _nameP2 = nameP2;
     }
@@ -57,8 +56,7 @@ public class OnButtonStartListener implements MouseListener, KeyListener{
             System.out.println("Wrong names" + _nameP1.getText() + _nameP2.getText());
         }
         else {
-            _screen.getContentPane().removeAll();
-            _jeu.start(_nameP1.getText(), _nameP2.getText());
+            _fenetre.startJeu(_nameP1.getText(), _nameP2.getText());
         }
     }
 }
