@@ -34,4 +34,10 @@ public class Grille extends JPanel {
         _grille.get(position)._occupe = occupe;
         _grille.get(position).repaint();
     }
+    
+    public void resized() {
+        for (int i = 0; i < _grille.size(); i++) {
+            _grille.get(i).resized();
+        }
+    }
 }

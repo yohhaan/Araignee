@@ -2,7 +2,8 @@ package araignee;
 
 public class Pion {
     
-    public final static int TAILLE = 50;
+    public final static double RATIO_TAILLE = 0.1;
+    public static int taille;
     
     public final int _type;
     public int _position = 9;

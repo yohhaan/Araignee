@@ -17,7 +17,9 @@ import javax.swing.JPanel;
  */
 public class StockUnPion extends JPanel {
     
-    public static final int MARGE = 5;
+    public static final double RATIO_MARGE = 0.1; //Ratio par raport au pion
+    public static int marge;
+    public static int taille;
     
     private boolean isEmpty;
     private Color _color;
@@ -28,8 +30,6 @@ public class StockUnPion extends JPanel {
         isEmpty = false;
         _color = color;
         
-        int _taille = 2*MARGE + Pion.TAILLE;
-        this.setPreferredSize(new Dimension(_taille, _taille));
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
     
@@ -39,7 +39,7 @@ public class StockUnPion extends JPanel {
         
         if (!isEmpty) {
             g.setColor(_color);
-            g.fillOval(MARGE, MARGE, Pion.TAILLE, Pion.TAILLE); 
+            g.fillOval(marge, marge, Pion.taille, Pion.taille); 
         }
     }
     

@@ -1,6 +1,5 @@
 package araignee;
 
-import static araignee.StockUnPion.MARGE;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -14,7 +13,9 @@ import javax.swing.JPanel;
  * @author Tanguy
  */
 public class Case extends JPanel{
-    public final static int MARGE = 5;
+    public final static double RATIO_MARGE = 0.1;
+    public static int taille;
+    public static int marge;
     
     public int _occupe = 0; // 0 si pas de pion, 1 si le pion du joueur 1 est sur la case, 2 si c'est le pion du joueur 2 qui est présent
     public final int _position; // position dans la grille de la case
@@ -23,8 +24,8 @@ public class Case extends JPanel{
     public Case(int position) {
         super();
         
-        int _taille = 2*MARGE + Pion.TAILLE;
-        this.setPreferredSize(new Dimension(_taille, _taille));
+        int taille = (int) ((2*RATIO_MARGE + 1) * Pion.taille);
+        this.setPreferredSize(new Dimension(taille, taille));
         
         this.setBackground(Color.YELLOW);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -37,8 +38,6 @@ public class Case extends JPanel{
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
-        int taille = 2*MARGE + Pion.TAILLE;
         
         Image marbre = new ImageIcon("marbre.jpg").getImage();
         Image marbreResized = new ImageIcon(marbre.getScaledInstance(taille, taille, Image.SCALE_DEFAULT)).getImage();
@@ -55,7 +54,7 @@ public class Case extends JPanel{
                 break;
         }
 
-        g.fillOval(MARGE, MARGE, Pion.TAILLE, Pion.TAILLE); 
+        g.fillOval(marge, marge, Pion.taille, Pion.taille); 
     }
 
     public void setOccupe(int _occupe) {
@@ -68,5 +67,9 @@ public class Case extends JPanel{
 
     public int getOccupe() {
         return _occupe;
+    }
+    
+    public void resized() {
+        setPreferredSize(new Dimension(taille, taille));
     }
 }
