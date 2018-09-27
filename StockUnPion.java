@@ -16,9 +16,7 @@ import javax.swing.JPanel;
  * @author Tanguy
  */
 public class StockUnPion extends JPanel {
-    
     public static final int MARGE = 5;
-    
     private boolean isEmpty;
     private Color _color;
 

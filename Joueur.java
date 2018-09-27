@@ -15,6 +15,9 @@ public class Joueur {
         _couleur=couleur;
     }
 
+    /*
+    GETTER
+    */
     public int getId() {
         return _id;
     }
@@ -22,17 +25,20 @@ public class Joueur {
     public int getPositionStock() {
         return _positionStock;
     }
-
-    public void setPositionStock(int _positionStock) {
-        this._positionStock = _positionStock;
-    }
-
-    public String getNom() {
+    
+        public String getNom() {
         return _nom;
     }
 
     public Color getCouleur() {
         return _couleur;
     }
-    
+
+    /*
+    SETTER
+    */
+    public void setPositionStock(int _positionStock) {
+        this._positionStock = _positionStock;
+    }
+
 }

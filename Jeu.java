@@ -73,13 +73,11 @@ public class Jeu extends JPanel{
         _fenetre.getContentPane().repaint();
     }
 
-    public void setPlayer(Joueur player) {
-        _player = player;
-    }
+    
+    
+    
 
-    public Joueur getPlayer() {
-        return _player;
-    }
+
     
          
         
@@ -143,6 +141,22 @@ public class Jeu extends JPanel{
         Image background = new ImageIcon("bois.jpg").getImage();
         Image bgResized = new ImageIcon(background.getScaledInstance(width, height, Image.SCALE_DEFAULT)).getImage();
         g.drawImage(bgResized, 0, 0, this);
+    }
+    
+    /*
+    GETTER
+    */
+
+    public Joueur getPlayer() {
+        return _player;
+    }
+    
+    /*
+    SETTER
+    */
+    
+    public void setPlayer(Joueur player) {
+        _player = player;
     }
 }
 

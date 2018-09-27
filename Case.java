@@ -9,10 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Tanguy
- */
+
 public class Case extends JPanel{
     public final static int MARGE = 5;
     
@@ -58,15 +55,23 @@ public class Case extends JPanel{
         g.fillOval(MARGE, MARGE, Pion.TAILLE, Pion.TAILLE); 
     }
 
-    public void setOccupe(int _occupe) {
-        this._occupe = _occupe;
-    }
-
+    
+    /*
+    GETTER
+    */
     public int getPosition() {
         return _position;
     }
 
     public int getOccupe() {
         return _occupe;
+    }
+    
+    /*
+    SETTER
+    */
+    
+    public void setOccupe(int _occupe) {
+        this._occupe = _occupe;
     }
 }
