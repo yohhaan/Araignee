@@ -7,8 +7,10 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Jeu extends JPanel{
@@ -21,11 +23,12 @@ public class Jeu extends JPanel{
     private Joueur _player;
     private Joueur _joueur2;
     private JLabel _message;
+    private Fenetre _fenetre;
     
 
     Jeu(Fenetre fenetre){
         super();
-        
+        _fenetre=fenetre;
         _message = new JLabel("Au tour du joueur 1 de jouer !");
         
         JPanel sectionGauche = new JPanel();
@@ -35,7 +38,6 @@ public class Jeu extends JPanel{
         sectionGauche.add(_grille);
         
         this.add("West", sectionGauche);
-        
         
         JPanel sectionDroite = new JPanel();
         sectionDroite.setLayout(new BorderLayout());
@@ -75,13 +77,7 @@ public class Jeu extends JPanel{
     }
 
     
-    
-    
 
-
-    
-         
-        
     public void changePlayer(){
         if (this.getPlayer() ==_joueur1){
             this.setPlayer(_joueur2);
@@ -93,42 +89,38 @@ public class Jeu extends JPanel{
         _message.repaint();
     }
     
+    
+    
     public void click(Case c) {
         System.out.println("La case " + c + " a été clickée !");
         
         try{
         if (c.getOccupe() != 0){
-            if (c.getOccupe() != 0){
-                throw new ExceptionCase("Tentative de placer un pion sur une case déjà occupée");
-            }
-            else {
-                c.setOccupe(0);
-                // transfert du pion ailleurs ?
-            }
+            throw new ExceptionCase("Tentative de placer un pion sur une case déjà occupée");
         }
         else {
             c.setOccupe(_player.getId()); // case à présent occupée par un pion du joueur en train de jouer
-
             stockPions.retrait(this.getPlayer()); // suppression d'un pion dans les stocks
-            
             _grille.changeEtat(c.getPosition(), this.getPlayer().getId()); // modifie état de la case
-
-            this.changePlayer();  //au tour du joueur suivant de jouer
+            if (_grille.check()){
+                
+                JOptionPane.showMessageDialog(_fenetre,_player.getNom()+" a gagné !","Gagné !",JOptionPane.PLAIN_MESSAGE);
+                
+                
+                _fenetre.stopJeu();
+            }
+            else
+                this.changePlayer();  //au tour du joueur suivant de jouer
+            
+            
         }
         } catch(ExceptionCase e){
             
-            // gérer les exceptions
+            JOptionPane.showMessageDialog(_fenetre,"Vous ne pouvez pas placer plus d'un pion par case !","Erreur",JOptionPane.ERROR_MESSAGE);
+            System.out.println(e);// gérer les exceptions
             
-        }
-        
-        
-        
-        if (c.getOccupe()==0){
+        }      
            
-            
-            
-
-        }
     }
 
     @Override

@@ -42,6 +42,10 @@ public class Fenetre extends JFrame implements ComponentListener{
         _jeu.start(nameP1, nameP2);
     }
 
+    public void stopJeu() {
+        _etat=Etat.LOBBY;
+        _lobby.display(this);
+    }
     @Override
     public void componentResized(ComponentEvent e) {
         if (_etat == Etat.LOBBY) {
