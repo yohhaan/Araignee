@@ -4,10 +4,6 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Tanguy
- */
 public class Grille extends JPanel {
 
     private Jeu _jeu;

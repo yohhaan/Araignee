@@ -75,13 +75,11 @@ public class Jeu extends JPanel{
         fenetre.getContentPane().repaint();
     }
 
-    public void setPlayer(Joueur player) {
-        _player = player;
-    }
+    
+    
+    
 
-    public Joueur getPlayer() {
-        return _player;
-    }
+
     
          
         
@@ -169,6 +167,22 @@ public class Jeu extends JPanel{
         
         Case.marge = (int) (Case.RATIO_MARGE * Pion.taille);
         Case.taille = 2*Case.marge + Pion.taille;
+    }
+
+    /*
+    GETTER
+    */
+
+    public Joueur getPlayer() {
+        return _player;
+    }
+    
+    /*
+    SETTER
+    */
+    
+    public void setPlayer(Joueur player) {
+        _player = player;
     }
 }
 

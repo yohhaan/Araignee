@@ -16,7 +16,7 @@ import javax.swing.JPanel;
  * @author Tanguy
  */
 public class StockUnPion extends JPanel {
-    
+
     public static final double RATIO_MARGE = 0.1; //Ratio par raport au pion
     public static int marge;
     public static int taille;

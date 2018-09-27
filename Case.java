@@ -8,10 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Tanguy
- */
+
 public class Case extends JPanel{
     public final static double RATIO_MARGE = 0.1;
     public static int taille;
@@ -57,10 +54,10 @@ public class Case extends JPanel{
         g.fillOval(marge, marge, Pion.taille, Pion.taille); 
     }
 
-    public void setOccupe(int _occupe) {
-        this._occupe = _occupe;
-    }
-
+    
+    /*
+    GETTER
+    */
     public int getPosition() {
         return _position;
     }
@@ -71,5 +68,12 @@ public class Case extends JPanel{
     
     public void resized() {
         setPreferredSize(new Dimension(taille, taille));
+    }
+    /*
+    SETTER
+    */
+    
+    public void setOccupe(int _occupe) {
+        this._occupe = _occupe;
     }
 }

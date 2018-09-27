@@ -1,4 +1,3 @@
-
 package araignee;
 
 import java.awt.BorderLayout;

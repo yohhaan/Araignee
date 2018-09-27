@@ -5,10 +5,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.JPanel;
 
-/**
- *
- * @author Tanguy
- */
 public class StockPions extends JPanel {
     
     private StockUnPion[] stocks;

@@ -3,10 +3,6 @@ package araignee;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-/**
- *
- * @author Tanguy
- */
 public class OnCaseClickListener implements MouseListener {
     
     private Jeu _jeu;

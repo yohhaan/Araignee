@@ -1,7 +1,7 @@
 package araignee;
 
 public class Pion {
-    
+
     public final static double RATIO_TAILLE = 0.1;
     public static int taille;
     
@@ -13,6 +13,11 @@ public class Pion {
         _type = type;
     }
     
+    
+    /*
+    GETTER
+    */
+    
     public int getType() {
         return _type;
     }
@@ -20,6 +25,10 @@ public class Pion {
     public int getPosition() {
         return _position;
     }
+    
+    /*
+    SETTER
+    */
 
     public void setPosition(int _position) {
         this._position = _position;
