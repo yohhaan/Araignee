@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -14,6 +15,9 @@ import javax.swing.JPanel;
 public class Jeu extends JPanel{
     public final static Color couleurJoueur1 = Color.RED;
     public final static Color couleurJoueur2 = Color.BLUE;
+    
+    public final static double RATIO_TEXT = 0.02;
+    public static int tailleTexte;
     
     private Grille _grille;
     private StockPions stockPions;
@@ -28,6 +32,7 @@ public class Jeu extends JPanel{
         setSizes(fenetre);
         
         _message = new JLabel("Au tour du joueur 1 de jouer !");
+        _message.setFont(new Font("Lucida Handwritting", Font.PLAIN, tailleTexte));
         
         JPanel sectionGauche = new JPanel();
         sectionGauche.setLayout(new FlowLayout());
@@ -69,19 +74,13 @@ public class Jeu extends JPanel{
     
     public void display(Fenetre fenetre){
         
+        resized(fenetre);
+        
         fenetre.getContentPane().removeAll();
         fenetre.add(this);
         fenetre.getContentPane().revalidate();
         fenetre.getContentPane().repaint();
     }
-
-    
-    
-    
-
-
-    
-         
         
     public void changePlayer(){
         if (this.getPlayer() ==_joueur1){
@@ -149,16 +148,18 @@ public class Jeu extends JPanel{
         
         setSizes(fenetre);
         
+        //_message.setFont(new Font("Lucida Handwritting", Font.PLAIN, tailleTexte));
+        
         _grille.resized();
         stockPions.resized();
-        
-        display(fenetre);
     }
     
     private void setSizes(Fenetre fenetre) {
         Dimension dimensionFenetre = fenetre.getSize();
         int width = (int)dimensionFenetre.getWidth();
         int height = (int)dimensionFenetre.getHeight();
+        
+        Jeu.tailleTexte = (int) (Jeu.RATIO_TEXT * width);
         
         Pion.taille = (int) (Pion.RATIO_TAILLE * width);
         

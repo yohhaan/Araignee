@@ -18,14 +18,21 @@ public class Fenetre extends JFrame implements ComponentListener{
     
     private enum Etat {JEU, LOBBY};
     
+    private final static int INITIAL_WIDTH = 600, INITIAL_HEIGHT = 600;
+    
     private Etat _etat;
     private Lobby _lobby;
     private Jeu _jeu;
     
+    private int _width, _height;
+    
     public Fenetre() {
-        super("Jeu de l'arraignée !");
+        super("Jeu de l'araignée !");
         
-        setSize(600, 600);
+        _width = INITIAL_WIDTH;
+        _height = INITIAL_HEIGHT;
+        
+        setSize(_width, _height);
         setLayout(new BorderLayout());
         addComponentListener(this);
         
@@ -45,11 +52,12 @@ public class Fenetre extends JFrame implements ComponentListener{
 
     @Override
     public void componentResized(ComponentEvent e) {
+        
         if (_etat == Etat.LOBBY) {
-            _lobby.resized(this);
+            _lobby.display(this);
         }
         else {
-            _jeu.resized(this);
+            _jeu.display(this);
         }
     }
 
@@ -62,4 +70,11 @@ public class Fenetre extends JFrame implements ComponentListener{
     @Override
     public void componentHidden(ComponentEvent e) {}
     
+    public int getWidth() {
+        return _width;
+    }
+    
+    public int getHeight() {
+        return _height;
+    }
 }
