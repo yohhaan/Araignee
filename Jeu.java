@@ -8,7 +8,6 @@ import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,8 +17,6 @@ public class Jeu extends JPanel{
     public final static Color couleurJoueur1 = Color.RED;
     public final static Color couleurJoueur2 = Color.BLUE;
     
-    JFrame _fenetre;
-    
     private Grille _grille;
     private StockPions stockPions;
     private Joueur _joueur1;
@@ -27,19 +24,9 @@ public class Jeu extends JPanel{
     private Joueur _joueur2;
     
 
-    Jeu(JFrame fenetre){
+    Jeu(Fenetre fenetre){
         super();
-        _fenetre = fenetre;
-    }
-    
-    /**
-     * initialisation du jeu
-     */
-    void start(String nameP1, String nameP2){
         
-        _joueur1 = new Joueur(nameP1, 1,0);
-        _joueur2 = new Joueur(nameP2, 2,1);
-        _player=_joueur1;
         JPanel sectionGauche = new JPanel();
         sectionGauche.setLayout(new FlowLayout());
         
@@ -63,10 +50,18 @@ public class Jeu extends JPanel{
         areaStockPions.add(stockPions);
         
         this.add("East", sectionDroite);
-        _fenetre.add(this);
+    }
+    
+    public void display(Fenetre fenetre, String nameP1, String nameP2){
         
-        _fenetre.getContentPane().revalidate();
-        _fenetre.getContentPane().repaint();
+        _joueur1 = new Joueur(nameP1, 1,0);
+        _joueur2 = new Joueur(nameP2, 2,1);
+        _player =_joueur1;
+        
+        fenetre.getContentPane().removeAll();
+        fenetre.add(this);
+        fenetre.getContentPane().revalidate();
+        fenetre.getContentPane().repaint();
     }
 
     public void setPlayer(Joueur player) {
@@ -114,5 +109,7 @@ public class Jeu extends JPanel{
         Image bgResized = new ImageIcon(background.getScaledInstance(width, height, Image.SCALE_DEFAULT)).getImage();
         g.drawImage(bgResized, 0, 0, this);
     }
+    
+    public void resized(Fenetre fenetre) {}
 }
 

@@ -11,28 +11,33 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 class Lobby extends JPanel{
     
-    private Jeu _jeu;
+    private final static double WIDTH_RATIO = 0.5, HEIGHT_RATIO = 0.2;
     
-    public Lobby(JFrame screen, Jeu jeu) {
+    private JPanel _content;
+    
+    public Lobby(Fenetre fenetre) {
         super();
-        _jeu = jeu;
         
         this.setLayout(new GridBagLayout());
         
-        JPanel content = new JPanel();
-        content.setLayout(new BorderLayout());
-        content.setBackground(new Color(200, 200, 200, 200));
+        Dimension dimensionFenetre = fenetre.getSize();
+        int width = (int)dimensionFenetre.getWidth();
+        int height = (int)dimensionFenetre.getHeight();
+        
+        _content = new JPanel();
+        _content.setLayout(new BorderLayout());
+        _content.setBackground(new Color(200, 200, 200, 200));
+        _content.setPreferredSize(new Dimension((int) (WIDTH_RATIO * width), (int) (HEIGHT_RATIO * height)));
         
         JLabel title = new JLabel("Le jeu de l'arraigné, par ECLAIR, ou presque");
         title.setFont(new Font("Lucida Handwriting", Font.BOLD, 14));
-        content.add("North", title);
+        _content.add("North", title);
         
         JPanel names = new JPanel();
         names.setLayout(new FlowLayout());
@@ -62,21 +67,28 @@ class Lobby extends JPanel{
         names.add("West", areaPlayer1);
         names.add("East", areaPlayer2);
         
-        content.add("Center", names);
+        _content.add("Center", names);
         
         
         JButton startButton = new JButton("Start");
-        startButton.addMouseListener(new OnButtonStartListener(screen, jeu, nameP1, nameP2));
-        content.add("South", startButton);
+        OnButtonStartListener buttonStartListener = new OnButtonStartListener(fenetre, nameP1, nameP2);
+        startButton.addMouseListener(buttonStartListener);
+        _content.add("South", startButton);
         
         
-        this.add(content);
-        screen.add(this);
+        this.add(_content);
         
         
         nameP1.addKeyListener(new TextAreaListener(nameP1, nameP2));
         nameP2.addKeyListener(new TextAreaListener(nameP2, startButton));
-        startButton.addKeyListener(new OnButtonStartListener(screen, jeu, nameP1, nameP2));
+        startButton.addKeyListener(buttonStartListener);
+    }
+    
+    public void display(Fenetre fenetre) {
+        fenetre.getContentPane().removeAll();
+        fenetre.add(this);
+        fenetre.getContentPane().revalidate();
+        fenetre.getContentPane().repaint();
     }
 
     @Override
@@ -92,5 +104,11 @@ class Lobby extends JPanel{
         g.drawImage(bgResized, 0, 0, this);
     }
     
-    
+    public void resized(Fenetre fenetre) {
+        Dimension dimensionFenetre = fenetre.getSize();
+        int width = (int)dimensionFenetre.getWidth();
+        int height = (int)dimensionFenetre.getHeight();
+        
+        _content.setPreferredSize(new Dimension((int) (WIDTH_RATIO * width), (int) (HEIGHT_RATIO * height)));
+    }
 }
