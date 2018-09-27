@@ -3,7 +3,11 @@ package araignee;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -104,6 +108,19 @@ public class Jeu extends JPanel{
             
 
         }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+        
+        Dimension dimensionFenetre = this.getSize();
+        int width = (int)dimensionFenetre.getWidth();
+        int height = (int)dimensionFenetre.getHeight();
+        
+        Image background = new ImageIcon("bois.jpg").getImage();
+        Image bgResized = new ImageIcon(background.getScaledInstance(width, height, Image.SCALE_DEFAULT)).getImage();
+        g.drawImage(bgResized, 0, 0, this);
     }
 }
 

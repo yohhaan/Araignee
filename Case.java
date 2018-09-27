@@ -4,7 +4,9 @@ import static araignee.StockUnPion.MARGE;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 /**
@@ -58,6 +60,12 @@ public class Case extends JPanel{
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        
+        int taille = 2*MARGE + Pion.TAILLE;
+        
+        Image marbre = new ImageIcon("marbre.jpg").getImage();
+        Image marbreResized = new ImageIcon(marbre.getScaledInstance(taille, taille, Image.SCALE_DEFAULT)).getImage();
+        g.drawImage(marbreResized, 0, 0, this);
         
         switch(_occupe) {
             case 0:
