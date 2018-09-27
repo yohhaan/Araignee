@@ -97,8 +97,17 @@ public class Jeu extends JPanel{
     public void click(Case c) {
         System.out.println("La case " + c + " a été clickée !");
         
-        if (c.getOccupe()==0){
-           
+        try{
+        if (c.getOccupe() != 0){
+            if (c.getOccupe() != 0){
+                throw new ExceptionCase("Tentative de placer un pion sur une case déjà occupée");
+            }
+            else {
+                c.setOccupe(0);
+                // transfert du pion ailleurs ?
+            }
+        }
+        else {
             c.setOccupe(_player.getId()); // case à présent occupée par un pion du joueur en train de jouer
 
             stockPions.retrait(this.getPlayer()); // suppression d'un pion dans les stocks
@@ -106,6 +115,18 @@ public class Jeu extends JPanel{
             _grille.changeEtat(c.getPosition(), this.getPlayer().getId()); // modifie état de la case
 
             this.changePlayer();  //au tour du joueur suivant de jouer
+        }
+        } catch(ExceptionCase e){
+            
+            // gérer les exceptions
+            
+        }
+        
+        
+        
+        if (c.getOccupe()==0){
+           
+            
             
 
         }

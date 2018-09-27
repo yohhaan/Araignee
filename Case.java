@@ -32,30 +32,7 @@ public class Case extends JPanel{
         _position = position;
     }
     
-    void ModifierEtatCase(int occupe){
-        
-        try{
-        if (_occupe != 0){
-            if (occupe != 0){
-                throw new ExceptionCase("Tentative de placer un pion sur une case déjà occupée");
-            }
-            else {
-                _occupe = 0;
-                // transfert du pion ailleurs ?
-            }
-        }
-        else if (occupe==0) {
-            throw new ExceptionCase("Aucun pion sélectionné");
-        }
-        else {
-            _occupe = occupe;
-        }
-        } catch(ExceptionCase e){
-            
-            // gérer les exceptions
-            
-        }
-    }
+ 
     
     @Override
     public void paintComponent(Graphics g) {
