@@ -30,7 +30,7 @@ public class Grille extends JPanel {
         }
     }
     
-    public void test(int position, int occupe) {
+    public void changeEtat(int position, int occupe) {
         _grille.get(position)._occupe = occupe;
         _grille.get(position).repaint();
     }

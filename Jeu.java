@@ -1,4 +1,3 @@
-
 package araignee;
 
 import java.awt.BorderLayout;
@@ -13,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Jeu extends JPanel{
-    
     public final static Color couleurJoueur1 = Color.RED;
     public final static Color couleurJoueur2 = Color.BLUE;
     
@@ -22,10 +20,13 @@ public class Jeu extends JPanel{
     private Joueur _joueur1;
     private Joueur _player;
     private Joueur _joueur2;
+    private JLabel _message;
     
 
     Jeu(Fenetre fenetre){
         super();
+        
+        _message = new JLabel("Au tour du joueur 1 de jouer !");
         
         JPanel sectionGauche = new JPanel();
         sectionGauche.setLayout(new FlowLayout());
@@ -39,8 +40,7 @@ public class Jeu extends JPanel{
         JPanel sectionDroite = new JPanel();
         sectionDroite.setLayout(new BorderLayout());
         
-        JLabel message = new JLabel("Test de message un peu mais pas trop long !");
-        sectionDroite.add("North", message);
+        sectionDroite.add("North", _message);
         
         JPanel areaStockPions = new JPanel();
         areaStockPions.setLayout(new FlowLayout());
@@ -52,11 +52,21 @@ public class Jeu extends JPanel{
         this.add("East", sectionDroite);
     }
     
-    public void display(Fenetre fenetre, String nameP1, String nameP2){
+    /**
+     * initialisation du jeu
+     */
+    void start(String nameP1, String nameP2){
         
-        _joueur1 = new Joueur(nameP1, 1,0);
-        _joueur2 = new Joueur(nameP2, 2,1);
-        _player =_joueur1;
+        _joueur1 = new Joueur(nameP1, 1,0,couleurJoueur1 );
+        _joueur2 = new Joueur(nameP2, 2,1,couleurJoueur2);
+        _player=_joueur1;
+        
+        _message.setText("Au tour de " + _player.getNom() + " de jouer !");
+        _message.setForeground(_player.getCouleur());
+        _message.repaint();
+    }
+    
+    public void display(Fenetre fenetre){
         
         fenetre.getContentPane().removeAll();
         fenetre.add(this);
@@ -72,26 +82,52 @@ public class Jeu extends JPanel{
         return _player;
     }
     
+         
+        
     public void changePlayer(){
         if (this.getPlayer() ==_joueur1){
             this.setPlayer(_joueur2);
         }
         else
             this.setPlayer(_joueur1);
+        _message.setText("Au tour de " + _player.getNom() + " de jouer !");
+        _message.setForeground(_player.getCouleur());
+        _message.repaint();
     }
     
     public void click(Case c) {
         System.out.println("La case " + c + " a été clickée !");
         
+        try{
+        if (c.getOccupe() != 0){
+            if (c.getOccupe() != 0){
+                throw new ExceptionCase("Tentative de placer un pion sur une case déjà occupée");
+            }
+            else {
+                c.setOccupe(0);
+                // transfert du pion ailleurs ?
+            }
+        }
+        else {
+            c.setOccupe(_player.getId()); // case à présent occupée par un pion du joueur en train de jouer
+
+            stockPions.retrait(this.getPlayer()); // suppression d'un pion dans les stocks
+            
+            _grille.changeEtat(c.getPosition(), this.getPlayer().getId()); // modifie état de la case
+
+            this.changePlayer();  //au tour du joueur suivant de jouer
+        }
+        } catch(ExceptionCase e){
+            
+            // gérer les exceptions
+            
+        }
+        
+        
+        
         if (c.getOccupe()==0){
            
-            c.setOccupe(_player.getId()); // case occupée par un pion du joueur en train de jouer
-
-            stockPions.test(this.getPlayer());
             
-            _grille.test(c.getPosition(), this.getPlayer().getId());
-
-            this.changePlayer();
             
 
         }

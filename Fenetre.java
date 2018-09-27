@@ -38,7 +38,8 @@ public class Fenetre extends JFrame implements ComponentListener{
     }
     
     public void startJeu(String nameP1, String nameP2) {
-        _jeu.display(this, nameP1, nameP2);
+        _jeu.display(this);
+        _jeu.start(nameP1, nameP2);
     }
 
     @Override
