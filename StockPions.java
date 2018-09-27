@@ -33,7 +33,7 @@ public class StockPions extends JPanel {
         }
     }
     
-    public void test(Joueur player) {
+    public void retrait(Joueur player) {
         
         stocks[player.getPositionStock()].effacePion();
         

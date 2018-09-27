@@ -21,11 +21,13 @@ public class Jeu extends JPanel{
     private Joueur _joueur1;
     private Joueur _player;
     private Joueur _joueur2;
+    private JLabel _message;
     
 
     Jeu(JFrame fenetre){
         super();
         _fenetre = fenetre;
+        _message = new JLabel("Au tour du joueur 1 de jouer !");
     }
     
     /**
@@ -48,8 +50,11 @@ public class Jeu extends JPanel{
         JPanel sectionDroite = new JPanel();
         sectionDroite.setLayout(new BorderLayout());
         
-        JLabel message = new JLabel("Test de message un peu mais pas trop long !");
-        sectionDroite.add("North", message);
+        
+        _message.setText("Au tour de " + _player.getNom() + " de jouer !");
+        _message.repaint();
+        
+        sectionDroite.add("North", _message);
         
         JPanel areaStockPions = new JPanel();
         areaStockPions.setLayout(new FlowLayout());
@@ -79,6 +84,9 @@ public class Jeu extends JPanel{
         }
         else
             this.setPlayer(_joueur1);
+        _message.setText("Au tour de " + _player.getNom() + " de jouer !");
+        System.out.println(_player.getNom() );
+        _message.repaint();
     }
     
     public void click(Case c) {
@@ -86,13 +94,13 @@ public class Jeu extends JPanel{
         
         if (c.getOccupe()==0){
            
-            c.setOccupe(_player.getId()); // case occupée par un pion du joueur en train de jouer
+            c.setOccupe(_player.getId()); // case à présent occupée par un pion du joueur en train de jouer
 
-            stockPions.test(this.getPlayer());
+            stockPions.retrait(this.getPlayer()); // suppression d'un pion dans les stocks
             
-            _grille.test(c.getPosition(), this.getPlayer().getId());
+            _grille.changeEtat(c.getPosition(), this.getPlayer().getId()); // modifie état de la case
 
-            this.changePlayer();
+            this.changePlayer();  //au tour du joueur suivant de jouer
             
 
         }

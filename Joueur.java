@@ -22,5 +22,9 @@ public class Joueur {
     public void setPositionStock(int _positionStock) {
         this._positionStock = _positionStock;
     }
+
+    public String getNom() {
+        return _nom;
+    }
     
 }
