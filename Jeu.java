@@ -1,4 +1,3 @@
-
 package araignee;
 
 import java.awt.BorderLayout;
@@ -14,10 +13,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Jeu extends JPanel{
-    
     public final static Color couleurJoueur1 = Color.RED;
     public final static Color couleurJoueur2 = Color.BLUE;
-    
+   
     JFrame _fenetre;
     
     private Grille _grille;
@@ -39,8 +37,8 @@ public class Jeu extends JPanel{
      */
     void start(String nameP1, String nameP2){
         
-        _joueur1 = new Joueur(nameP1, 1,0);
-        _joueur2 = new Joueur(nameP2, 2,1);
+        _joueur1 = new Joueur(nameP1, 1,0,couleurJoueur1 );
+        _joueur2 = new Joueur(nameP2, 2,1,couleurJoueur2);
         _player=_joueur1;
         JPanel sectionGauche = new JPanel();
         sectionGauche.setLayout(new FlowLayout());
@@ -56,6 +54,7 @@ public class Jeu extends JPanel{
         
         
         _message.setText("Au tour de " + _player.getNom() + " de jouer !");
+        _message.setForeground(_player.getCouleur());
         _message.repaint();
         
         sectionDroite.add("North", _message);
@@ -82,6 +81,8 @@ public class Jeu extends JPanel{
         return _player;
     }
     
+         
+        
     public void changePlayer(){
         if (this.getPlayer() ==_joueur1){
             this.setPlayer(_joueur2);
@@ -89,7 +90,7 @@ public class Jeu extends JPanel{
         else
             this.setPlayer(_joueur1);
         _message.setText("Au tour de " + _player.getNom() + " de jouer !");
-        System.out.println(_player.getNom() );
+        _message.setForeground(_player.getCouleur());
         _message.repaint();
     }
     

@@ -1,14 +1,18 @@
 package araignee;
 
+import java.awt.Color;
+
 public class Joueur {
     public String _nom;
     public int _id;
     public int _positionStock;
+    public final Color _couleur;
     
-    Joueur(String nom, int id, int position){
+    Joueur(String nom, int id, int position, Color couleur){
         _nom=nom;
         _id = id;
         _positionStock =position;
+        _couleur=couleur;
     }
 
     public int getId() {
@@ -25,6 +29,10 @@ public class Joueur {
 
     public String getNom() {
         return _nom;
+    }
+
+    public Color getCouleur() {
+        return _couleur;
     }
     
 }
