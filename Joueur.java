@@ -7,12 +7,14 @@ public class Joueur {
     public int _id;
     public int _positionStock;
     public final Color _couleur;
+    public int _phaseJeu;
     
     Joueur(String nom, int id, int position, Color couleur){
         _nom=nom;
         _id = id;
         _positionStock =position;
         _couleur=couleur;
+        _phaseJeu =1;
     }
 
     /*
@@ -20,6 +22,10 @@ public class Joueur {
     */
     public int getId() {
         return _id;
+    }
+    
+    public int getPhaseJeu() {
+        return _phaseJeu;
     }
 
     public int getPositionStock() {
@@ -40,5 +46,11 @@ public class Joueur {
     public void setPositionStock(int _positionStock) {
         this._positionStock = _positionStock;
     }
+
+    public void setPhaseJeu(int _phaseJeu) {
+        this._phaseJeu = _phaseJeu;
+    }
+    
+    
 
 }

@@ -28,6 +28,8 @@ public class Jeu extends JPanel{
     private Joueur _joueur2;
     private JLabel _message;
     private Fenetre _fenetre;
+    private boolean _phaseJeu2 = false;
+    private int _phaseJeu2Position;
     
 
     Jeu(Fenetre fenetre){
@@ -101,32 +103,82 @@ public class Jeu extends JPanel{
     public void click(Case c) {
         System.out.println("La case " + c + " a été clickée !");
         
-        try{
-        if (c.getOccupe() != 0){
-            throw new ExceptionCase("Tentative de placer un pion sur une case déjà occupée");
-        }
-        else {
-            c.setOccupe(_player.getId()); // case à présent occupée par un pion du joueur en train de jouer
-            stockPions.retrait(this.getPlayer()); // suppression d'un pion dans les stocks
-            _grille.changeEtat(c.getPosition(), this.getPlayer().getId()); // modifie état de la case
-            if (_grille.check()){
-                
-                JOptionPane.showMessageDialog(_fenetre,_player.getNom()+" a gagné !","Gagné !",JOptionPane.PLAIN_MESSAGE);
-                
-                
-                _fenetre.stopJeu();
+        if (_player.getPhaseJeu()==1){
+            try{
+            if (c.getOccupe() != 0){
+                throw new ExceptionCase("Tentative de placer un pion sur une case déjà occupée");
             }
-            else
-                this.changePlayer();  //au tour du joueur suivant de jouer
+            else {
+                c.setOccupe(_player.getId()); // case à présent occupée par un pion du joueur en train de jouer
+                stockPions.retrait(this.getPlayer()); // suppression d'un pion dans les stocks
+                _grille.changeEtat(c.getPosition(), this.getPlayer().getId()); // modifie état de la case
+                if (_grille.check()){
+                    
+                    JOptionPane.showMessageDialog(_fenetre,_player.getNom()+" a gagné !","Gagné !",JOptionPane.PLAIN_MESSAGE);
+                
+                
+                    _fenetre.stopJeu();
+                }
+                else
+                    this.changePlayer();  //au tour du joueur suivant de jouer
             
             
+            }
+            } catch(ExceptionCase e){
+            
+                JOptionPane.showMessageDialog(_fenetre,"Vous ne pouvez pas placer plus d'un pion par case !","Erreur",JOptionPane.ERROR_MESSAGE);
+                System.out.println(e);// gérer les exceptions
+            
+            }
         }
-        } catch(ExceptionCase e){
+        else if (_phaseJeu2!=true && _player.getPhaseJeu()==2){
+            System.out.println("Jouer "+_player.getNom()+"est dans la phase 2!");
+            try{
+            if (c.getOccupe() == 0){
+                throw new ExceptionCase("Tentative de prendre un pion d'une case vide");
+            }
+            else if (c.getOccupe()!=_player.getId()){
+                throw new ExceptionCase("Tentative de prendre un pion de l'adversaire");
+            }
+            else {
+                JOptionPane.showMessageDialog(_fenetre,"Bien à présent, sélectionnez une case vide à proximité du pion à déplacer","Indication",JOptionPane.PLAIN_MESSAGE);
+                _phaseJeu2=true;
+                _phaseJeu2Position=c.getPosition();
+            }
+            } catch(ExceptionCase e){
             
-            JOptionPane.showMessageDialog(_fenetre,"Vous ne pouvez pas placer plus d'un pion par case !","Erreur",JOptionPane.ERROR_MESSAGE);
-            System.out.println(e);// gérer les exceptions
+                JOptionPane.showMessageDialog(_fenetre,"Vous ne pahse 2  !","Erreur",JOptionPane.ERROR_MESSAGE);
+                System.out.println(e);// gérer les exceptions
+            }
+        }
+        else{
+            System.out.println("Jouer "+_player.getNom()+"est dans la phase 2 de la pĥase 2!");
+            try{
+            if (c.getOccupe() != 0){
+                throw new ExceptionCase("Tentative de placer le pion sur une case occupée");
+            }
+            else {
+                _grille.changeEtat(_phaseJeu2Position, 0);
+                _grille.changeEtat(c.getPosition(), this.getPlayer().getId()); // modifie état de la case
+                _phaseJeu2=false;
+                if (_grille.check()){
+                    
+                    JOptionPane.showMessageDialog(_fenetre,_player.getNom()+" a gagné !","Gagné !",JOptionPane.PLAIN_MESSAGE);
+                
+                
+                    _fenetre.stopJeu();
+                }
+                else
+                    this.changePlayer();  //au tour du joueur suivant de jouer
             
-        }      
+            }
+            } catch(ExceptionCase e){
+            
+                JOptionPane.showMessageDialog(_fenetre,"Vous ne pouvez pas placer plus d'un pion par case !","Erreur",JOptionPane.ERROR_MESSAGE);
+                System.out.println(e);// gérer les exceptions
+            
+            }
+        }
            
     }
 

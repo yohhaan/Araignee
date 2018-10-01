@@ -34,13 +34,12 @@ public class StockPions extends JPanel {
     public void retrait(Joueur player) {
         
         stocks[player.getPositionStock()].effacePion();
+        player.setPositionStock(player.getPositionStock()+2); 
         
-        if (player.getPositionStock() <=4){
-            player.setPositionStock(player.getPositionStock()+2);
+        if (player.getPositionStock() >=6){
+            player.setPhaseJeu(2);
+            System.out.println("Phase de jeu:"+player.getPhaseJeu());
         }
-        else
-            System.out.println("plus de pion en stock pour le joueur qui vient de jouer");
-        
     }
     
     public void resized() {
