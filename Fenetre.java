@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package araignee;
 
 import java.awt.BorderLayout;
@@ -11,10 +6,6 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import javax.swing.JFrame;
 
-/**
- *
- * @author Tanguy
- */
 public class Fenetre extends JFrame implements ComponentListener{
     
     private enum Etat {JEU, LOBBY};
@@ -53,6 +44,7 @@ public class Fenetre extends JFrame implements ComponentListener{
 
     public void stopJeu() {
         _etat=Etat.LOBBY;
+        _jeu = new Jeu(this);
         _lobby.display(this);
     }
     @Override
@@ -79,10 +71,12 @@ public class Fenetre extends JFrame implements ComponentListener{
     @Override
     public void componentHidden(ComponentEvent e) {}
     
+    @Override
     public int getWidth() {
         return _width;
     }
     
+    @Override
     public int getHeight() {
         return _height;
     }
