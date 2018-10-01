@@ -14,10 +14,8 @@ import javax.swing.JPanel;
 public class Jeu extends JPanel{
     public final static Color couleurJoueur1 = Color.RED;
     public final static Color couleurJoueur2 = Color.BLUE;
-    
     public final static double RATIO_TEXT = 0.02;
     public static int tailleTexte;
-    
     private Grille _grille;
     private StockPions stockPions;
     private Joueur _joueur1;
@@ -96,8 +94,6 @@ public class Jeu extends JPanel{
     
     
     public void click(Case c) {
-        System.out.println("La case " + c + " a été clickée !");
-        
         if (_player.getPhaseJeu()==1){
             try{
             if (c.getOccupe() != 0){
@@ -127,7 +123,6 @@ public class Jeu extends JPanel{
             }
         }
         else if (_phaseJeu2!=true && _player.getPhaseJeu()==2){
-            System.out.println("Jouer "+_player.getNom()+"est dans la phase 2!");
             try{
             if (c.getOccupe() == 0){
                 throw new ExceptionCase("Prise de pion case vide");
@@ -136,7 +131,10 @@ public class Jeu extends JPanel{
                 throw new ExceptionCase("Prise de pion adversaire");
             }
             else if (_grille.checkProximity(c.getPosition())){
-                JOptionPane.showMessageDialog(_fenetre,"Bien à présent, sélectionnez une case vide à proximité du pion à déplacer","Indication",JOptionPane.PLAIN_MESSAGE);
+                _message.setText("À présent " + _player.getNom() + ", sélectionnez une case vide à proximité.");
+                _message.setForeground(_player.getCouleur());
+                _message.repaint();
+                //JOptionPane.showMessageDialog(_fenetre,"Bien à présent, sélectionnez une case vide à proximité du pion à déplacer","Indication",JOptionPane.PLAIN_MESSAGE);
                 _phaseJeu2=true;
                 _phaseJeu2Position=c.getPosition();
             }
@@ -150,7 +148,6 @@ public class Jeu extends JPanel{
             }
         }
         else{
-            System.out.println("Jouer "+_player.getNom()+"est dans la phase 2 de la pĥase 2!");
             try{
             if (c.getOccupe() != 0){
                 throw new ExceptionCase("Tentative de placer le pion sur une case occupée");
