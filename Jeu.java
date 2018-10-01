@@ -134,12 +134,8 @@ public class Jeu extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
         
-        Dimension dimensionFenetre = this.getSize();
-        int width = (int)dimensionFenetre.getWidth();
-        int height = (int)dimensionFenetre.getHeight();
-        
         Image background = new ImageIcon("bois.jpg").getImage();
-        Image bgResized = new ImageIcon(background.getScaledInstance(width, height, Image.SCALE_DEFAULT)).getImage();
+        Image bgResized = new ImageIcon(background.getScaledInstance(_fenetre.getWidth(), _fenetre.getHeight(), Image.SCALE_DEFAULT)).getImage();
         g.drawImage(bgResized, 0, 0, this);
     }
     
@@ -154,13 +150,10 @@ public class Jeu extends JPanel{
     }
     
     private void setSizes(Fenetre fenetre) {
-        Dimension dimensionFenetre = fenetre.getSize();
-        int width = (int)dimensionFenetre.getWidth();
-        int height = (int)dimensionFenetre.getHeight();
+                
+        Jeu.tailleTexte = (int) (Jeu.RATIO_TEXT * fenetre.getWidth());
         
-        Jeu.tailleTexte = (int) (Jeu.RATIO_TEXT * width);
-        
-        Pion.taille = (int) (Pion.RATIO_TAILLE * width);
+        Pion.taille = (int) (Pion.RATIO_TAILLE * fenetre.getWidth());
         
         StockUnPion.marge = (int) (StockUnPion.RATIO_MARGE * Pion.taille);
         StockUnPion.taille = 2*StockUnPion.marge + Pion.taille;

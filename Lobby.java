@@ -18,10 +18,13 @@ class Lobby extends JPanel{
     
     private final static double WIDTH_RATIO = 0.5, HEIGHT_RATIO = 0.2;
     
+    private Fenetre _fenetre;
     private JPanel _content;
     
     public Lobby(Fenetre fenetre) {
         super();
+        
+        _fenetre = fenetre;
         
         this.setLayout(new GridBagLayout());
         
@@ -96,20 +99,12 @@ class Lobby extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        Dimension dimensionFenetre = this.getSize();
-        int width = (int)dimensionFenetre.getWidth();
-        int height = (int)dimensionFenetre.getHeight();
-        
         Image background = new ImageIcon("toilearaignee.jpg").getImage();
-        Image bgResized = new ImageIcon(background.getScaledInstance(width, height, Image.SCALE_DEFAULT)).getImage();
+        Image bgResized = new ImageIcon(background.getScaledInstance(_fenetre.getWidth(), _fenetre.getHeight(), Image.SCALE_DEFAULT)).getImage();
         g.drawImage(bgResized, 0, 0, this);
     }
     
     public void resized(Fenetre fenetre) {
-        Dimension dimensionFenetre = fenetre.getSize();
-        int width = (int)dimensionFenetre.getWidth();
-        int height = (int)dimensionFenetre.getHeight();
-        
-        _content.setPreferredSize(new Dimension((int) (WIDTH_RATIO * width), (int) (HEIGHT_RATIO * height)));
+        _content.setPreferredSize(new Dimension((int) (WIDTH_RATIO * _fenetre.getWidth()), (int) (HEIGHT_RATIO * _fenetre.getHeight())));
     }
 }
