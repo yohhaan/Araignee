@@ -8,4 +8,6 @@ public class ExceptionCase extends Exception {
     public ExceptionCase(String msg) {
         super(msg);
     }
+    
+    
 }

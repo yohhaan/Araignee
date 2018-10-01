@@ -55,6 +55,45 @@ public class Grille extends JPanel {
         
     }
     
+    public boolean checkProximity(int i){
+        switch (i){
+            case 0:
+                if (_grille.get(1).getOccupe()==0 || _grille.get(3).getOccupe()==0 || _grille.get(4).getOccupe()==0)
+                    return true;
+                break;
+            case 1:
+                if (_grille.get(0).getOccupe()==0 || _grille.get(2).getOccupe()==0 || _grille.get(3).getOccupe()==0|| _grille.get(4).getOccupe()==0|| _grille.get(5).getOccupe()==0)
+                    return true;
+                break;
+            case 2:
+                if (_grille.get(1).getOccupe()==0 || _grille.get(4).getOccupe()==0 || _grille.get(5).getOccupe()==0)
+                    return true;
+                break;
+            case 3:
+                if (_grille.get(0).getOccupe()==0 || _grille.get(1).getOccupe()==0 || _grille.get(4).getOccupe()==0|| _grille.get(6).getOccupe()==0|| _grille.get(7).getOccupe()==0)
+                    return true;
+                break;
+            case 4:
+                return true;
+            case 5:
+                if (_grille.get(1).getOccupe()==0 || _grille.get(2).getOccupe()==0 || _grille.get(4).getOccupe()==0|| _grille.get(7).getOccupe()==0|| _grille.get(8).getOccupe()==0)
+                    return true;
+                break;
+            case 6:
+                if (_grille.get(3).getOccupe()==0 || _grille.get(4).getOccupe()==0 || _grille.get(7).getOccupe()==0)
+                    return true;
+                break;
+            case 7:
+                if (_grille.get(6).getOccupe()==0 || _grille.get(3).getOccupe()==0 || _grille.get(4).getOccupe()==0|| _grille.get(5).getOccupe()==0|| _grille.get(8).getOccupe()==0)
+                    return true;
+                break;
+            case 8:
+                if (_grille.get(4).getOccupe()==0 || _grille.get(5).getOccupe()==0 || _grille.get(7).getOccupe()==0)
+                    return true;
+                break;
+    }
+        return false;
+    }
 
     public void resized() {
         for (int i = 0; i < _grille.size(); i++) {

@@ -2,14 +2,11 @@ package araignee;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -78,9 +75,7 @@ public class Jeu extends JPanel{
     }
     
     public void display(Fenetre fenetre){
-        
         resized(fenetre);
-        
         fenetre.getContentPane().removeAll();
         fenetre.add(this);
         fenetre.getContentPane().revalidate();
@@ -135,20 +130,23 @@ public class Jeu extends JPanel{
             System.out.println("Jouer "+_player.getNom()+"est dans la phase 2!");
             try{
             if (c.getOccupe() == 0){
-                throw new ExceptionCase("Tentative de prendre un pion d'une case vide");
+                throw new ExceptionCase("Prise de pion case vide");
             }
             else if (c.getOccupe()!=_player.getId()){
-                throw new ExceptionCase("Tentative de prendre un pion de l'adversaire");
+                throw new ExceptionCase("Prise de pion adversaire");
             }
-            else {
+            else if (_grille.checkProximity(c.getPosition())){
                 JOptionPane.showMessageDialog(_fenetre,"Bien à présent, sélectionnez une case vide à proximité du pion à déplacer","Indication",JOptionPane.PLAIN_MESSAGE);
                 _phaseJeu2=true;
                 _phaseJeu2Position=c.getPosition();
             }
+            else {
+                throw new ExceptionCase("Le pion sélectionné est bloqué ! ");
+                
+            }
             } catch(ExceptionCase e){
             
-                JOptionPane.showMessageDialog(_fenetre,"Vous ne pahse 2  !","Erreur",JOptionPane.ERROR_MESSAGE);
-                System.out.println(e);// gérer les exceptions
+                JOptionPane.showMessageDialog(_fenetre,e,"Erreur",JOptionPane.ERROR_MESSAGE);
             }
         }
         else{
@@ -174,8 +172,7 @@ public class Jeu extends JPanel{
             }
             } catch(ExceptionCase e){
             
-                JOptionPane.showMessageDialog(_fenetre,"Vous ne pouvez pas placer plus d'un pion par case !","Erreur",JOptionPane.ERROR_MESSAGE);
-                System.out.println(e);// gérer les exceptions
+                JOptionPane.showMessageDialog(_fenetre,e,"Erreur",JOptionPane.ERROR_MESSAGE);
             
             }
         }

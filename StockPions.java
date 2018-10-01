@@ -38,7 +38,6 @@ public class StockPions extends JPanel {
         
         if (player.getPositionStock() >=6){
             player.setPhaseJeu(2);
-            System.out.println("Phase de jeu:"+player.getPhaseJeu());
         }
     }
     
