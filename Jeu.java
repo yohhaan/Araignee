@@ -2,27 +2,25 @@ package araignee;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Jeu extends JPanel{
-    public final static Color couleurJoueur1 = Color.RED;
-    public final static Color couleurJoueur2 = Color.BLUE;
+    public final static Color COULEUR_JOUEUR_1 = Color.RED;
+    public final static Color COULEUR_JOUEUR_2 = Color.BLUE;
     
     public final static double RATIO_TEXT = 0.02;
     public static int tailleTexte;
     
     private Grille _grille;
-    private StockPions stockPions;
+    private StockPions _stockPions;
     private Joueur _joueur1;
     private Joueur _player;
     private Joueur _joueur2;
@@ -33,30 +31,39 @@ public class Jeu extends JPanel{
     Jeu(Fenetre fenetre){
         super();
         _fenetre=fenetre;
+        
+        this.setLayout(new BorderLayout());
 
         setSizes(fenetre);
         _message = new JLabel("Au tour du joueur 1 de jouer !");
         _message.setFont(new Font("Lucida Handwritting", Font.PLAIN, tailleTexte));
         
         JPanel sectionGauche = new JPanel();
-        sectionGauche.setLayout(new FlowLayout());
+        sectionGauche.setLayout(new GridBagLayout());
+        sectionGauche.setBackground(new Color(0, 0, 0, 0));
         
         _grille = new Grille(this); // Crée la grille et les pions
         sectionGauche.add(_grille);
         
-        this.add("West", sectionGauche);
+        this.add("Center", sectionGauche);
         
         JPanel sectionDroite = new JPanel();
-        sectionDroite.setLayout(new BorderLayout());
+        sectionDroite.setLayout(new GridBagLayout());
+        sectionDroite.setBackground(new Color(0, 0, 0, 0));
         
-        sectionDroite.add("North", _message);
+        JPanel sectionDroiteContent = new JPanel();
+        sectionDroiteContent.setLayout(new BorderLayout());
+        
+        sectionDroiteContent.add("North", _message);
         
         JPanel areaStockPions = new JPanel();
         areaStockPions.setLayout(new FlowLayout());
-        sectionDroite.add("Center", areaStockPions);
+        sectionDroiteContent.add("Center", areaStockPions);
         
-        stockPions = new StockPions(100);
-        areaStockPions.add(stockPions);
+        _stockPions = new StockPions();
+        areaStockPions.add(_stockPions);
+        
+        sectionDroite.add(sectionDroiteContent);
         
         this.add("East", sectionDroite);
     }
@@ -64,10 +71,10 @@ public class Jeu extends JPanel{
     /**
      * initialisation du jeu
      */
-    void start(String nameP1, String nameP2){
+    public void start(String nameP1, String nameP2){
         
-        _joueur1 = new Joueur(nameP1, 1,0,couleurJoueur1 );
-        _joueur2 = new Joueur(nameP2, 2,1,couleurJoueur2);
+        _joueur1 = new Joueur(nameP1, 1,0,COULEUR_JOUEUR_1);
+        _joueur2 = new Joueur(nameP2, 2,1,COULEUR_JOUEUR_2);
         _player=_joueur1;
         
         _message.setText("Au tour de " + _player.getNom() + " de jouer !");
@@ -107,7 +114,7 @@ public class Jeu extends JPanel{
         }
         else {
             c.setOccupe(_player.getId()); // case à présent occupée par un pion du joueur en train de jouer
-            stockPions.retrait(this.getPlayer()); // suppression d'un pion dans les stocks
+            _stockPions.retrait(this.getPlayer()); // suppression d'un pion dans les stocks
             _grille.changeEtat(c.getPosition(), this.getPlayer().getId()); // modifie état de la case
             if (_grille.check()){
                 
@@ -143,10 +150,10 @@ public class Jeu extends JPanel{
         
         setSizes(fenetre);
         
-        //_message.setFont(new Font("Lucida Handwritting", Font.PLAIN, tailleTexte));
+        _message.setFont(new Font("Lucida Handwritting", Font.PLAIN, tailleTexte));
         
         _grille.resized();
-        stockPions.resized();
+        _stockPions.resized();
     }
     
     private void setSizes(Fenetre fenetre) {

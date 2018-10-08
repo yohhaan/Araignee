@@ -9,7 +9,6 @@ import javax.swing.JTextArea;
 public class OnButtonStartListener implements MouseListener, KeyListener{
     
     private Fenetre _fenetre;
-    private Jeu _jeu;
     private JTextArea _nameP1, _nameP2;
     
     public OnButtonStartListener(Fenetre fenetre, JTextArea nameP1, JTextArea nameP2) {

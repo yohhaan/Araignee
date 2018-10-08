@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 public class Grille extends JPanel {
 
     private Jeu _jeu;
-    private ArrayList<Case> _grille = new ArrayList<Case>();
+    private ArrayList<Case> _cases = new ArrayList<Case>();
     
     public Grille(Jeu jeu) {
         super();
@@ -21,30 +21,30 @@ public class Grille extends JPanel {
             
             c.addMouseListener(new OnCaseClickListener(_jeu, c));
             
-            _grille.add(c); // initialisation grille avec les 9 cases
+            _cases.add(c); // initialisation grille avec les 9 cases
             this.add(c);
         }
     }
     
     public void changeEtat(int position, int occupe) {
-        _grille.get(position)._occupe = occupe;
-        _grille.get(position).repaint();
+        _cases.get(position)._occupe = occupe;
+        _cases.get(position).repaint();
     }
     
     public boolean checkLine(int line){
         // vérifie pour une ligne si 3 pions sont alignés, l'argument line qui est passé doit être la position de la première case de la ligne à tester
-        return ( _grille.get(line).getOccupe()!=0 &&_grille.get(line).getOccupe()==_grille.get(line+1).getOccupe()&&_grille.get(line).getOccupe() ==_grille.get(line+ 2).getOccupe());
+        return ( _cases.get(line).getOccupe()!=0 &&_cases.get(line).getOccupe()==_cases.get(line+1).getOccupe()&&_cases.get(line).getOccupe() ==_cases.get(line+ 2).getOccupe());
     }
     
         public boolean checkColumn(int column){
         // vérifie pour une colonne si 3 pions sont alignés, l'argument column qui est passé doit être la position de la première case de la colonne à tester
-        return ( _grille.get(column).getOccupe()!=0 && _grille.get(column).getOccupe()==_grille.get(column+3).getOccupe()&&_grille.get(column).getOccupe() ==_grille.get(column+ 6).getOccupe());
+        return ( _cases.get(column).getOccupe()!=0 && _cases.get(column).getOccupe()==_cases.get(column+3).getOccupe()&&_cases.get(column).getOccupe() ==_cases.get(column+ 6).getOccupe());
     }
         
         
         public boolean checkDiag(){
         // vérifie l'alignement sur les diagonales
-        return ( _grille.get(0).getOccupe()!=0 && _grille.get(0).getOccupe()==_grille.get(4).getOccupe()&&_grille.get(0).getOccupe() ==_grille.get(8).getOccupe() || _grille.get(2).getOccupe()!=0 && _grille.get(2).getOccupe()==_grille.get(4).getOccupe()&&_grille.get(2).getOccupe() ==_grille.get(6).getOccupe());
+        return ( _cases.get(0).getOccupe()!=0 && _cases.get(0).getOccupe()==_cases.get(4).getOccupe()&&_cases.get(0).getOccupe() ==_cases.get(8).getOccupe() || _cases.get(2).getOccupe()!=0 && _cases.get(2).getOccupe()==_cases.get(4).getOccupe()&&_cases.get(2).getOccupe() ==_cases.get(6).getOccupe());
     }
         
     public boolean check(){
@@ -57,8 +57,8 @@ public class Grille extends JPanel {
     
 
     public void resized() {
-        for (int i = 0; i < _grille.size(); i++) {
-            _grille.get(i).resized();
+        for (int i = 0; i < _cases.size(); i++) {
+            _cases.get(i).resized();
         }
     }
 

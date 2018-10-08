@@ -37,8 +37,8 @@ public class Joueur {
     /*
     SETTER
     */
-    public void setPositionStock(int _positionStock) {
-        this._positionStock = _positionStock;
+    public void setPositionStock(int positionStock) {
+        this._positionStock = positionStock;
     }
 
 }

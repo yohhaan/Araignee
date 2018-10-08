@@ -16,7 +16,6 @@ public class Case extends JPanel{
     
     public int _occupe = 0; // 0 si pas de pion, 1 si le pion du joueur 1 est sur la case, 2 si c'est le pion du joueur 2 qui est présent
     public final int _position; // position dans la grille de la case
-    private Jeu jeu;
     
     public Case(int position) {
         super();
@@ -33,7 +32,7 @@ public class Case extends JPanel{
  
     
     @Override
-    public void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
         Image marbre = new ImageIcon("marbre.jpg").getImage();
@@ -44,10 +43,10 @@ public class Case extends JPanel{
             case 0:
                 return;
             case 1:
-                g.setColor(Jeu.couleurJoueur1);
+                g.setColor(Jeu.COULEUR_JOUEUR_1);
                 break;
             case 2:
-                g.setColor(Jeu.couleurJoueur2);
+                g.setColor(Jeu.COULEUR_JOUEUR_2);
                 break;
         }
 
@@ -73,7 +72,7 @@ public class Case extends JPanel{
     SETTER
     */
     
-    public void setOccupe(int _occupe) {
-        this._occupe = _occupe;
+    public void setOccupe(int occupe) {
+        this._occupe = occupe;
     }
 }
