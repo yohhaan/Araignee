@@ -17,7 +17,7 @@ public class Jeu extends JPanel{
     public final static double RATIO_TEXT = 0.02;
     public static int tailleTexte;
     private Grille _grille;
-    private StockPions stockPions;
+    private StockPions _stockPions;
     private Joueur _joueur1;
     private Joueur _player;
     private Joueur _joueur2;
@@ -52,8 +52,8 @@ public class Jeu extends JPanel{
         areaStockPions.setLayout(new FlowLayout());
         sectionDroite.add("Center", areaStockPions);
         
-        stockPions = new StockPions(100);
-        areaStockPions.add(stockPions);
+        _stockPions = new StockPions(100);
+        areaStockPions.add(_stockPions);
         
         this.add("East", sectionDroite);
     }
@@ -86,9 +86,18 @@ public class Jeu extends JPanel{
         }
         else
             this.setPlayer(_joueur1);
-        _message.setText("Au tour de " + _player.getNom() + " de jouer !");
-        _message.setForeground(_player.getCouleur());
-        _message.repaint();
+        
+        if (this.getPlayer().getPhaseJeu()==1){
+            _message.setText("Au tour de " + _player.getNom() + " de jouer !");
+            _message.setForeground(_player.getCouleur());
+            _message.repaint();
+        }
+        else {
+            _message.setText(_player.getNom() + " sélectionner un pion à déplacer.");
+            _message.setForeground(_player.getCouleur());
+            _message.repaint();
+            
+        }
     }
     
     
@@ -97,15 +106,15 @@ public class Jeu extends JPanel{
         if (_player.getPhaseJeu()==1){
             try{
             if (c.getOccupe() != 0){
-                throw new ExceptionCase("Tentative de placer un pion sur une case déjà occupée");
+                throw new ExceptionCase("La case sélectionnée est déjà occupée !");
             }
             else {
                 c.setOccupe(_player.getId()); // case à présent occupée par un pion du joueur en train de jouer
-                stockPions.retrait(this.getPlayer()); // suppression d'un pion dans les stocks
+                _stockPions.retrait(this.getPlayer()); // suppression d'un pion dans les stocks
                 _grille.changeEtat(c.getPosition(), this.getPlayer().getId()); // modifie état de la case
                 if (_grille.check()){
                     
-                    JOptionPane.showMessageDialog(_fenetre,_player.getNom()+" a gagné !","Gagné !",JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(_fenetre,_player.getNom()+" a gagné ! Bravo !!!","Gagné !",JOptionPane.PLAIN_MESSAGE);
                 
                 
                     _fenetre.stopJeu();
@@ -116,25 +125,24 @@ public class Jeu extends JPanel{
             
             }
             } catch(ExceptionCase e){
-            
-                JOptionPane.showMessageDialog(_fenetre,"Vous ne pouvez pas placer plus d'un pion par case !","Erreur",JOptionPane.ERROR_MESSAGE);
-                System.out.println(e);// gérer les exceptions
+                JOptionPane.showMessageDialog(_fenetre,e,"Erreur",JOptionPane.ERROR_MESSAGE);
+                //JOptionPane.showMessageDialog(_fenetre,"Vous ne pouvez pas placer plus d'un pion par case !","Erreur",JOptionPane.ERROR_MESSAGE);
+               // System.out.println(e);
             
             }
         }
         else if (_phaseJeu2!=true && _player.getPhaseJeu()==2){
             try{
             if (c.getOccupe() == 0){
-                throw new ExceptionCase("Prise de pion case vide");
+                throw new ExceptionCase("La case sélectionnée est vide !");
             }
             else if (c.getOccupe()!=_player.getId()){
-                throw new ExceptionCase("Prise de pion adversaire");
+                throw new ExceptionCase("La case sélectionnée contient un pion de l'adversaire !");
             }
             else if (_grille.checkProximity(c.getPosition())){
                 _message.setText("À présent " + _player.getNom() + ", sélectionnez une case vide à proximité.");
                 _message.setForeground(_player.getCouleur());
                 _message.repaint();
-                //JOptionPane.showMessageDialog(_fenetre,"Bien à présent, sélectionnez une case vide à proximité du pion à déplacer","Indication",JOptionPane.PLAIN_MESSAGE);
                 _phaseJeu2=true;
                 _phaseJeu2Position=c.getPosition();
             }
@@ -149,8 +157,11 @@ public class Jeu extends JPanel{
         }
         else{
             try{
-            if (c.getOccupe() != 0){
-                throw new ExceptionCase("Tentative de placer le pion sur une case occupée");
+            if (!_grille.checkIfAtProximity(_phaseJeu2Position,c.getPosition())){
+                throw new ExceptionCase("La case sélectionnée ne se trouve pas à proximité !");
+            }
+            else if (c.getOccupe() != 0){
+                throw new ExceptionCase("La case sélectionnée est déjà occupée");
             }
             else {
                 _grille.changeEtat(_phaseJeu2Position, 0);
@@ -158,7 +169,7 @@ public class Jeu extends JPanel{
                 _phaseJeu2=false;
                 if (_grille.check()){
                     
-                    JOptionPane.showMessageDialog(_fenetre,_player.getNom()+" a gagné !","Gagné !",JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(_fenetre,_player.getNom()+" a gagné ! Bravo !!!","Gagné !",JOptionPane.PLAIN_MESSAGE);
                 
                 
                     _fenetre.stopJeu();
@@ -189,10 +200,10 @@ public class Jeu extends JPanel{
         
         setSizes(fenetre);
         
-        //_message.setFont(new Font("Lucida Handwritting", Font.PLAIN, tailleTexte));
+        _message.setFont(new Font("Lucida Handwritting", Font.PLAIN, tailleTexte));
         
         _grille.resized();
-        stockPions.resized();
+        _stockPions.resized();
     }
     
     private void setSizes(Fenetre fenetre) {

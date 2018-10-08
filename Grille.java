@@ -94,6 +94,48 @@ public class Grille extends JPanel {
     }
         return false;
     }
+    
+    
+    
+    public boolean checkIfAtProximity(int i, int j){
+        switch (i){
+            case 0:
+                if (j==1 || j==3 || j==4)
+                    return true;
+                break;
+            case 1:
+                if (j==0 || j==2 ||j==3||j==4||j==5)
+                    return true;
+                break;
+            case 2:
+                if (j==1||j==4||j==5)
+                    return true;
+                break;
+            case 3:
+                if (j==0||j==1||j==4||j==6||j==7)
+                    return true;
+                break;
+            case 4:
+                return true;
+            case 5:
+                if (j==1 || j==2 || j==4|| j==7|| j==8)
+                    return true;
+                break;
+            case 6:
+                if (j==3 || j==4 || j==7)
+                    return true;
+                break;
+            case 7:
+                if (j==6 || j==3 || j==4|| j==5|| j==8)
+                    return true;
+                break;
+            case 8:
+                if (j==4 || j==5 || j==7)
+                    return true;
+                break;
+    }
+        return false;
+    }
 
     public void resized() {
         for (int i = 0; i < _grille.size(); i++) {
