@@ -16,7 +16,7 @@ public class Jeu extends JPanel{
     public final static Color COULEUR_JOUEUR_1 = Color.RED;
     public final static Color COULEUR_JOUEUR_2 = Color.BLUE;
     
-    public final static double RATIO_TEXT = 0.04;
+    public final static double RATIO_TEXT = 0.035;
     public static int tailleTexte;
     
     private Grille _grille;
@@ -106,7 +106,7 @@ public class Jeu extends JPanel{
             _message.setForeground(_player.getCouleur());
         }
         else {
-            _message.setText(_player.getNom() + " sélectionner un pion à déplacer.");
+            _message.setText(_player.getNom() + " sélectionnez" + " un pion à déplacer.");
             _message.setForeground(_player.getCouleur());
         }
         
