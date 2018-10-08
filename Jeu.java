@@ -17,7 +17,7 @@ public class Jeu extends JPanel{
     public final static Color COULEUR_JOUEUR_1 = Color.RED;
     public final static Color COULEUR_JOUEUR_2 = Color.BLUE;
     
-    public final static double RATIO_TEXT = 0.02;
+    public final static double RATIO_TEXT = 0.04;
     public static int tailleTexte;
     
     private Grille _grille;
@@ -35,11 +35,21 @@ public class Jeu extends JPanel{
         super();
         _fenetre=fenetre;
         
-        this.setLayout(new BorderLayout());
-
         setSizes(fenetre);
+        
+        
+        this.setLayout(new BorderLayout());
+        
+        JPanel sectionMessage = new JPanel();
+        sectionMessage.setLayout(new GridBagLayout());
+        sectionMessage.setBackground(new Color(0, 0, 0, 0));
+
         _message = new JLabel("Au tour du joueur 1 de jouer !");
         _message.setFont(new Font("Lucida Handwritting", Font.PLAIN, tailleTexte));
+        
+        sectionMessage.add(_message);
+        
+        this.add("North", sectionMessage);
         
         JPanel sectionGauche = new JPanel();
         sectionGauche.setLayout(new GridBagLayout());
@@ -54,19 +64,8 @@ public class Jeu extends JPanel{
         sectionDroite.setLayout(new GridBagLayout());
         sectionDroite.setBackground(new Color(0, 0, 0, 0));
         
-        JPanel sectionDroiteContent = new JPanel();
-        sectionDroiteContent.setLayout(new BorderLayout());
-        
-        sectionDroiteContent.add("North", _message);
-        
-        JPanel areaStockPions = new JPanel();
-        areaStockPions.setLayout(new FlowLayout());
-        sectionDroiteContent.add("Center", areaStockPions);
-        
         _stockPions = new StockPions();
-        areaStockPions.add(_stockPions);
-        
-        sectionDroite.add(sectionDroiteContent);
+        sectionDroite.add(_stockPions);
         
         this.add("East", sectionDroite);
     }
@@ -85,7 +84,7 @@ public class Jeu extends JPanel{
         
         _message.setText("Au tour de " + _player.getNom() + " de jouer !");
         _message.setForeground(_player.getCouleur());
-        _message.repaint();
+        display(_fenetre);
     }
     
     public void display(Fenetre fenetre){
@@ -104,7 +103,7 @@ public class Jeu extends JPanel{
             this.setPlayer(_joueur1);
         _message.setText("Au tour de " + _player.getNom() + " de jouer !");
         _message.setForeground(_player.getCouleur());
-        _message.repaint();
+        display(_fenetre);
     }
     
     
@@ -149,7 +148,7 @@ public class Jeu extends JPanel{
             else if (_grille.checkProximity(c.getPosition())){
                 _message.setText("À présent " + _player.getNom() + ", sélectionnez une case vide à proximité.");
                 _message.setForeground(_player.getCouleur());
-                _message.repaint();
+                display(_fenetre);
                 //JOptionPane.showMessageDialog(_fenetre,"Bien à présent, sélectionnez une case vide à proximité du pion à déplacer","Indication",JOptionPane.PLAIN_MESSAGE);
                 _phaseJeu2=true;
                 _phaseJeu2Position=c.getPosition();
@@ -222,6 +221,10 @@ public class Jeu extends JPanel{
         
         Case.marge = (int) (Case.RATIO_MARGE * Pion.taille);
         Case.taille = 2*Case.marge + Pion.taille;
+    }
+    
+    private void setMessage(String message) {
+        _message.setText(message);
     }
 
     /*
