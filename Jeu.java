@@ -19,6 +19,7 @@ public class Jeu extends JPanel{
     
     public final static double RATIO_TEXT = 0.02;
     public static int tailleTexte;
+    
     private Grille _grille;
     private StockPions _stockPions;
     private Joueur _joueur1;
@@ -74,6 +75,9 @@ public class Jeu extends JPanel{
      * initialisation du jeu
      */
     public void start(String nameP1, String nameP2){
+        
+        _grille.reset();
+        _stockPions.reset();
         
         _joueur1 = new Joueur(nameP1, 1,0,COULEUR_JOUEUR_1);
         _joueur2 = new Joueur(nameP2, 2,1,COULEUR_JOUEUR_2);

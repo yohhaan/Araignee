@@ -34,6 +34,10 @@ public class StockUnPion extends JPanel {
         }
     }
     
+    public void reset() {
+        _isEmpty = false;
+    }
+    
     public void effacePion() {
         _isEmpty = true;
         this.repaint();

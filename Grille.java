@@ -26,6 +26,12 @@ public class Grille extends JPanel {
         }
     }
     
+    public void reset() {
+        for (int i = 0; i < 9; i++) {
+            _cases.get(i).reset();
+        }
+    }
+    
     public void changeEtat(int position, int occupe) {
         _cases.get(position)._occupe = occupe;
         _cases.get(position).repaint();

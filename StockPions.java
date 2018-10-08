@@ -31,6 +31,12 @@ public class StockPions extends JPanel {
         }
     }
     
+    public void reset() {
+        for (int i = 0; i < 6; i++) {
+            stocks[i].reset();
+        }
+    }
+    
     public void retrait(Joueur player) {
         
         stocks[player.getPositionStock()].effacePion();

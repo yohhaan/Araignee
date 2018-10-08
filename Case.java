@@ -52,6 +52,10 @@ public class Case extends JPanel{
 
         g.fillOval(marge, marge, Pion.taille, Pion.taille); 
     }
+    
+    public void reset() {
+        _occupe = 0;
+    }
 
     
     /*

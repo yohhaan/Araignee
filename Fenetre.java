@@ -44,7 +44,6 @@ public class Fenetre extends JFrame implements ComponentListener{
 
     public void stopJeu() {
         _etat=Etat.LOBBY;
-        _jeu = new Jeu(this);
         _lobby.display(this);
     }
     @Override
