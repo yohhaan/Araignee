@@ -9,7 +9,7 @@ public class StockPions extends JPanel {
     
     private StockUnPion[] stocks;
 
-    public StockPions(int coteStock) {
+    public StockPions() {
         super();
         
         stocks = new StockUnPion[6];
@@ -28,6 +28,12 @@ public class StockPions extends JPanel {
             
             stocks[i] = stockUnPion;
             this.add(stockUnPion);
+        }
+    }
+    
+    public void reset() {
+        for (int i = 0; i < 6; i++) {
+            stocks[i].reset();
         }
     }
     

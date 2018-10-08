@@ -12,30 +12,34 @@ public class StockUnPion extends JPanel {
     public static int marge;
     public static int taille;
     
-    private boolean isEmpty;
+    private boolean _isEmpty;
     private Color _color;
 
     public StockUnPion(Color color) {
         super();
         
-        isEmpty = false;
+        _isEmpty = false;
         _color = color;
         
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
     
     @Override
-    public void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        if (!isEmpty) {
+        if (!_isEmpty) {
             g.setColor(_color);
             g.fillOval(marge, marge, Pion.taille, Pion.taille); 
         }
     }
     
+    public void reset() {
+        _isEmpty = false;
+    }
+    
     public void effacePion() {
-        isEmpty = true;
+        _isEmpty = true;
         this.repaint();
     }
 }
